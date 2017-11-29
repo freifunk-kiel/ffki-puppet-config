@@ -72,6 +72,10 @@ nano /etc/cloud/templates/hosts.debian.tmpl
 192.168.0.10 vpn5.freifunk.in-kiel.de
 192.168.0.13 vpn6.freifunk.in-kiel.de
 
+## resolv.conf rebootfest machen
+### prepend domain-name-servers 213.186.33.99; setzen
+nano /etc/dhcp/dhclient.conf
+
 ## check-services anpassen
 ### Zeile 77: rpcbind, alfred, openvpn, brid, batadv-vis entfernen respondd ergänzen
 nano /usr/local/bin/check-services
