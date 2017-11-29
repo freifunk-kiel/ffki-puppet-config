@@ -93,6 +93,7 @@ method "null";
 
 peer group "peers" {
         include peers from "peers";
+        peer limit 75;
 }
 
 ## mesh-announce installieren
