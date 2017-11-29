@@ -13,4 +13,5 @@ Details siehe steps.txt
 ## Nicht vergessen:
   - rDNS Eintrag setzen
   - Funktion mittels Router überprüfen
-  - DNS Einträge anpassen: https://git.toppoint.de/ttt/dns-zones/tree/db.ffki.de    
+  - DNS Einträge anpassen: https://git.toppoint.de/ttt/dns-zones/tree/db.ffki.de
+  - mind. 1 GW mit on verify true; konfigurieren
