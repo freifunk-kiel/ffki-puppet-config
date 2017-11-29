@@ -6,3 +6,11 @@ Details siehe steps.txt
   - fastd secret
   - ICVPN secret
   - addusers.pp
+
+## Benotigte Angaben:
+  - IPv6 von eth0
+
+## Nicht vergessen:
+  - rDNS Eintrag setzen
+  - Funktion mittels Router überprüfen
+  - DNS Einträge anpassen: https://git.toppoint.de/ttt/dns-zones/tree/db.ffki.de    
