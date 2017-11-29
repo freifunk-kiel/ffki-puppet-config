@@ -1,0 +1,57 @@
+class { 'ffnord::params':
+  router_id => "10.116.176.1",
+  icvpn_as => "65525",
+  wan_devices => ['eth0'],
+  wmem_default => 87380,
+  wmem_max     => 12582912,
+  rmem_default => 87380,
+  rmem_max     => 12582912,
+  gw_control_ips => "217.70.197.1",
+  max_backlog  => 5000,
+  include_bird4 => false,
+  maintenance => 1,
+  batman_version => 14,
+}
+
+ffnord::mesh { 'mesh_ffki':
+        mesh_name => "Freifunk Kiel"
+      , mesh_code => "ffki"
+      , mesh_as => "65525"
+      , mesh_mac => "de:ad:be:ef:ff:05"
+      , vpn_mac => "de:ad:be:ff:ff:05"
+      , mesh_ipv6 => "fda1:384a:74de:4242::ff05/64"
+      , mesh_ipv4 => "10.116.176.1/17"
+      , range_ipv4 => "10.116.0.0/16"
+      , mesh_mtu => "1280"
+      , mesh_peerings => "/opt/ffki-puppet-config/mesh_peerings.yaml"
+      , fastd_secret => "/opt/ffki-vpn5-fastd-secret.key"
+      , fastd_port => 11235
+      , fastd_peers_git => 'git://git.freifunk.in-kiel.de/fastd-peer-keys.git'
+      , dhcp_ranges => ['10.116.176.2 10.116.184.254']
+      , dns_servers => ['10.116.176.1']
+}
+
+class {'ffnord::vpn::provider::pia':
+  openvpn_server => "germany.privateinternetaccess.com",
+  openvpn_port => 3478,
+  openvpn_user => "xxxxx",
+  openvpn_password => "xxxxxxx",
+}
+
+ffnord::named::zone {
+  "ffki": zone_git => "git://git.freifunk.in-kiel.de/ffki-zone.git", exclude_meta => 'kiel';
+}
+
+class {
+  'ffnord::rsyslog':
+}
+
+class {
+  'ffnord::etckeeper':
+}
+
+# Useful packages
+package {
+  ['vim','tcpdump','dnsutils','realpath','screen','htop','mlocate','tig']:
+     ensure => installed;
+}
