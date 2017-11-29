@@ -1,0 +1,1 @@
+# ffki-puppet-config
