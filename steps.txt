@@ -62,7 +62,7 @@ nano /etc/network/interfaces.d/ffki-bridge
 ### manage_etc_hosts: false
 nano /etc/cloud/cloud.cfg
 ### /etc/hosts
-### Zeile 17: 127.0.1.1 ffki-5
+### Zeile 17: 127.0.1.1 vpn5
 ### vRACK Umleitung ergänzen
 nano /etc/cloud/templates/hosts.debian.tmpl
 
