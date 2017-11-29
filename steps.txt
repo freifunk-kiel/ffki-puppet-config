@@ -87,7 +87,7 @@ nano /usr/local/bin/check-gateway
 ## fastd cfg anpassen
 ### peers in peer grp
 ### null crypto ergänzen
-nano /etc/fastd/ffnord-mvpn/fastd.conf
+nano /etc/fastd/ffki-mvpn/fastd.conf
 
 method "null";
 
