@@ -60,10 +60,9 @@ nano /etc/network/interfaces.d/ffki-bridge
 ## Host Datei anpassen:
 ### manage_etc_hosts: false
 nano /etc/cloud/cloud.cfg
-### /etc/hosts
+nano /etc/hosts
 ### Zeile 17: 127.0.1.1 vpn5
 ### vRACK Umleitung ergänzen
-nano /etc/cloud/templates/hosts.debian.tmpl
 
 #vRACK
 192.168.0.12 vpn0.freifunk.in-kiel.de
