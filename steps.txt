@@ -85,6 +85,7 @@ nano /usr/local/bin/check-gateway
 ## fastd cfg anpassen
 ### peers in peer grp
 ### null crypto ergänzen
+### service alfred start am Ende löschen
 nano /etc/fastd/ffki-mvpn/fastd.conf
 
 method "null";
