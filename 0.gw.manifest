@@ -34,8 +34,8 @@ ffnord::mesh { 'mesh_ffki':
 class {'ffnord::vpn::provider::pia':
   openvpn_server => "germany.privateinternetaccess.com",
   openvpn_port => 3478,
-  openvpn_user => "p8742523",
-  openvpn_password => "bPFKmmDQe1uQYZA0yZRd";
+  openvpn_user => "xxxxx",
+  openvpn_password => "xxxxx";
 }
 
 ffnord::named::zone {
