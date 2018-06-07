@@ -4,11 +4,11 @@
 # do dpkg-reconfigure tzdata
 
 NAME="Freifunk Kiel"
-OPERATOR="Freifunk Nord e.V."
+OPERATOR="Offene Netze Nord e.V."
 CHANGELOG="https://issues.freifunk.in-kiel.de/projects/ffki/issues/"
 HOST_PREFIX="ffki-"
 SUBDOMAIN_PREFIX=gw
-VPN_NUMBER=5
+VPN_NUMBER=0
 DOMAIN="kiel.freifunk.net"
 SUDOUSERNAME="debian"
 TLD=ffki
@@ -94,21 +94,21 @@ maintenance off && service ntp start && batctl -m bat-ffki gw server 100000/1000
 EOF
 chmod +x /usr/local/bin/online
 
-#OVH network config
-cat <<-EOF>> /etc/network/interfaces
-
-iface eth0 inet6 static
-       address 2001:41d0:701:1000::27c
-       netmask 128
-       post-up /sbin/ip -6 route add 2001:41d0:701:1000::1 dev eth0
-       post-up /sbin/ip -6 route add default via 2001:41d0:701:1000::1 dev eth0
-       pre-down /sbin/ip -6 route del default via 2001:41d0:701:1000::1 dev eth0
-       pre-down /sbin/ip -6 route del 2001:41d0:701:1000::1 dev eth0
-
-auto eth1
-allow-hotplug eth1
-iface eth1 inet dhcp
-EOF
+##OVH network config
+#cat <<-EOF>> /etc/network/interfaces
+#
+#iface eth0 inet6 static
+#       address 2001:41d0:701:1000::27c
+#       netmask 128
+#       post-up /sbin/ip -6 route add 2001:41d0:701:1000::1 dev eth0
+#       post-up /sbin/ip -6 route add default via 2001:41d0:701:1000::1 dev eth0
+#       pre-down /sbin/ip -6 route del default via 2001:41d0:701:1000::1 dev eth0
+#       pre-down /sbin/ip -6 route del 2001:41d0:701:1000::1 dev eth0
+#
+#auto eth1
+#allow-hotplug eth1
+#iface eth1 inet dhcp
+#EOF
 
 #USER TODO:
 echo 'make sure /root/fastd_secret.key exists'

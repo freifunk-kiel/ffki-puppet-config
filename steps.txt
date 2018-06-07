@@ -11,7 +11,9 @@ cd /opt && git clone https://github.com/Tarnatos/ffki-puppet-config
 
 ## Pre-puppet anpassen:
 ### Zeile 11: VPN Nr.
-### Zeile 101: IPv6 von eth0 
+### bei OVH:
+##### OVH Block entkommentieren
+##### Zeile 101: IPv6 von eth0 
 cd /opt/ffki-puppet-config && nano pre-puppet.sh
 
 ## In den Screen wechseln
@@ -26,7 +28,7 @@ puppet apply --verbose addusers.pp
 
 ## puppet starten
 cd /opt/ffki-puppet-config
-puppet apply --verbose 5.gw.manifest.pp
+puppet apply --verbose 0.gw.manifest.pp
 
 ## batctl und batman-adv-dkms auf 2013 ändern
 ### im rm Befehl ggf. Kernel Version ändern 
@@ -45,6 +47,17 @@ Package: batman-adv-dkms
 Pin: version 2013.4.0-11
 Pin-Priority: 1000
 EOF
+
+
+
+## mesh-announce installieren
+cd /opt
+git clone https://github.com/Tarnatos/kiel-yanic-cfg
+cd kiel-yanic-cfg
+sh mesh-announce-install.sh
+
+
+#### optional ######
 
 ## OpenVPN deinstallieren
 apt-get remove -y --purge openvpn
@@ -94,12 +107,6 @@ peer group "peers" {
         include peers from "peers";
         peer limit 75;
 }
-
-## mesh-announce installieren
-cd /opt
-git clone https://github.com/Tarnatos/kiel-yanic-cfg
-cd kiel-yanic-cfg
-sh mesh-announce-install.sh
 
 # ICVPN abschalten
 systemctl disable tinc

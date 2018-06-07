@@ -38,18 +38,18 @@ class {'ffnord::vpn::provider::pia':
   openvpn_password => "xxxxx";
 }
 
-ffnord::named::zone {
-  "ffki": zone_git => "git://git.freifunk.in-kiel.de/ffki-zone.git", exclude_meta => 'kiel';
-}
-
-ffnord::icvpn::setup {
-  'kiel0':
-  icvpn_as => 65525,
-  icvpn_ipv4_address => "10.207.0.52",
-  icvpn_ipv6_address => "fec0::a:cf:0:34",
-  icvpn_exclude_peerings => [kiel],
-  tinc_keyfile => "/opt/ffki-vpn0-icvpn-rsa_key.priv"
-}
+#ffnord::named::zone {
+#  "ffki": zone_git => "git://git.freifunk.in-kiel.de/ffki-zone.git", exclude_meta => 'kiel';
+#}
+#
+#ffnord::icvpn::setup {
+#  'kiel0':
+#  icvpn_as => 65525,
+#  icvpn_ipv4_address => "10.207.0.52",
+#  icvpn_ipv6_address => "fec0::a:cf:0:34",
+#  icvpn_exclude_peerings => [kiel],
+#  tinc_keyfile => "/opt/ffki-vpn0-icvpn-rsa_key.priv"
+#}
 
 class {
   'ffnord::rsyslog':
@@ -61,6 +61,6 @@ class {
 
 # Useful packages
 package {
-  ['vim','tcpdump','dnsutils','realpath','screen','htop','mlocate','tig']:
+  ['vim','tcpdump','dnsutils','realpath','screen','htop','mlocate','tig','sshguard']:
      ensure => installed;
 }
