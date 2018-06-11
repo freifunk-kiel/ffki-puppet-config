@@ -48,7 +48,7 @@ ffnord::named::zone {
 #  icvpn_ipv4_address => "10.207.0.54",
 #  icvpn_ipv6_address => "fec0::a:cf:0:35",
 #  icvpn_exclude_peerings => [kiel],
-#  tinc_keyfile => "/opt/ffki-vpn4-icvpn-rsa_key.priv"
+#  tinc_keyfile => "/root/ffki-fastd-secret.key.priv"
 #}
 
 class {

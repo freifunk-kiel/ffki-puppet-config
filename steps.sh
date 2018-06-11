@@ -13,14 +13,17 @@ sed -e '/deb cdrom/ s/^#*/#/' /etc/apt/sources.list
 # echo "217.196.149.233 security.debian.org">>/etc/hosts
 # echo "151.101.12.204 security-cdn.debian.org">>/etc/hosts
 # echo "192.30.253.113 github.com">>/etc/hosts
+# echo "151.101.12.133 raw.githubusercontent.com">>/etc/hosts
 # echo "213.32.5.7 debian.mirrors.ovh.net">>/etc/hosts
 # echo "52.10.130.237 forgeapi.puppetlabs.com">>/etc/hosts
+# echo "216.58.213.240 storage.googleapis.com">>/etc/hosts
+
 
 ## Pakete vorinstallieren
 apt update && apt -y install apt-transport-https git nload screen tmux etckeeper sshguard tcpdump dnsutils realpath htop tig bash-completion haveged mtr-tiny vim nano unp mlocate cmake build-essential libcap-dev pkg-config libgps-dev python3 ethtool lsb-release zip locales-all ccze ncdu
 
 ## Puppet cfg clonen
-cd /opt && git clone https://github.com/Tarnatos/ffki-puppet-config
+cd /opt && git clone https://github.com/Freifunk-Kiel/ffki-puppet-config
 
 ## Pre-puppet anpassen:
 ### Zeile 11: VPN Nr.
@@ -29,11 +32,11 @@ cd /opt && git clone https://github.com/Tarnatos/ffki-puppet-config
 ##### Zeile 101: IPv6 von eth0 
 cd /opt/ffki-puppet-config && nano pre-puppet.sh
 
-## In den Screen wechseln
-screen
+## In tmux wechseln
+tmux
 
 ## key hinterlegen
-nano /opt/ffki-vpn0-fastd-secret.key
+nano /root/ffki-fastd-secret.key.priv
 
 
 ## Pre-puppet ausführen
