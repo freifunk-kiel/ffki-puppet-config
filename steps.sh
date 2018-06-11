@@ -61,14 +61,14 @@ modprobe batman-adv
 batctl -v
 
 ### Version anpinnen
-cat <<-EOF>> /etc/apt/preferences
-Package: batctl
-Pin: version 2013.4.0-1
-Pin-Priority: 1000
+cat <<-EOF >> /etc/apt/preferences
+    Package: batctl
+    Pin: version 2013.4.0-1
+    Pin-Priority: 1000
 
-Package: batman-adv-dkms
-Pin: version 2013.4.0-11
-Pin-Priority: 1000
+    Package: batman-adv-dkms
+    Pin: version 2013.4.0-11
+    Pin-Priority: 1000
 EOF
 
 
@@ -78,6 +78,16 @@ cd /opt
 git clone https://github.com/Tarnatos/kiel-yanic-cfg
 cd kiel-yanic-cfg
 sh mesh-announce-install.sh
+
+## Install prometheus-node-exporter
+
+## Install nullmailer
+
+## Created blacklist.db file for sshguard
+
+## Adding more stations to ping to in /etc/ffnord
+
+
 
 
 #### optional ######
