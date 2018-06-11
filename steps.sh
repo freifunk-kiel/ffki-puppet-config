@@ -9,8 +9,15 @@ dpkg-reconfigure tzdata
 ## CDROM installer aus sources.list entfernen
 sed -e '/deb cdrom/ s/^#*/#/' /etc/apt/sources.list
 
-## Git und Screen installieren
-apt-get update && apt-get -y install git screen tmux etckeeper sshguard vim tcpdump dnsutils realpath screen htop mlocate tig
+# DNS Problem on OVH:
+# echo "217.196.149.233 security.debian.org">>/etc/hosts
+# echo "151.101.12.204 security-cdn.debian.org">>/etc/hosts
+# echo "192.30.253.113 github.com">>/etc/hosts
+# echo "213.32.5.7 debian.mirrors.ovh.net">>/etc/hosts
+# echo "52.10.130.237 forgeapi.puppetlabs.com">>/etc/hosts
+
+## Pakete vorinstallieren
+apt update && apt -y install apt-transport-https git nload screen tmux etckeeper sshguard tcpdump dnsutils realpath htop tig bash-completion haveged mtr-tiny vim nano unp mlocate cmake build-essential libcap-dev pkg-config libgps-dev python3 ethtool lsb-release zip locales-all ccze ncdu
 
 ## Puppet cfg clonen
 cd /opt && git clone https://github.com/Tarnatos/ffki-puppet-config
@@ -38,22 +45,14 @@ puppet apply --verbose addusers.pp
 
 ## puppet starten
 cd /opt/ffki-puppet-config
-iface eth0 inet static
-        address 138.201.144.216
-        netmask 255.255.255.255
-        gateway 138.201.199.107
-        # dns-* options are implemented by the resolvconf package, if installed
-        dns-nameservers 8.8.8.8 8.8.4.4
-        pointopoint 138.201.199.107
-
 puppet apply --verbose 0.gw.manifest.pp
 
 ## batctl und batman-adv-dkms auf 2013 ändern
 ### im rm Befehl ggf. Kernel Version ändern 
-apt-get -y remove batctl 
-apt-get -y remove batman-adv-dkms
+apt -y remove batctl 
+apt -y remove batman-adv-dkms
 rm /lib/modules/3.16.0-4-amd64/kernel/net/batman-adv/batman-adv.ko
-apt-get install -y batctl=2013.4.0-1 batman-adv-dkms=2013.4.0-11
+apt install -y batctl=2013.4.0-1 batman-adv-dkms=2013.4.0-11
 dkms uninstall batman-adv/2013.4.0
 dkms install batman-adv/2013.4.0
 rmmod batman-adv
@@ -62,13 +61,13 @@ batctl -v
 
 ### Version anpinnen
 cat <<-EOF >> /etc/apt/preferences
-    Package: batctl
-    Pin: version 2013.4.0-1
-    Pin-Priority: 1000
+	Package: batctl
+	Pin: version 2013.4.0-1
+	Pin-Priority: 1000
 
-    Package: batman-adv-dkms
-    Pin: version 2013.4.0-11
-    Pin-Priority: 1000
+	Package: batman-adv-dkms
+	Pin: version 2013.4.0-11
+	Pin-Priority: 1000
 EOF
 
 
@@ -93,7 +92,7 @@ sh mesh-announce-install.sh
 #### optional ######
 
 ## OpenVPN deinstallieren
-apt-get remove -y --purge openvpn
+apt remove -y --purge openvpn
 rm -Rf /etc/openvpn/
 
 ## lokalen Exit aktivieren

@@ -17,7 +17,7 @@ TLD=ffki
 echo "deb http://http.debian.net/debian jessie-backports main" >>/etc/apt/sources.list
 
 #sysupgrade
-apt-get update && apt-get dist-upgrade && apt-get upgrade
+apt update && apt dist-upgrade && apt upgrade
 
 #MOTD setzen
 rm /etc/motd
@@ -40,42 +40,42 @@ touch /etc/hostname
 echo "vpn$VPN_NUMBER" >>/etc/hostname
 
 # install needed packages
-apt-get -y install sudo apt-transport-https git nload
+apt -y install sudo apt-transport-https git nload
 
 # optional pre installed to speed up the setup:
-apt-get -y install bash-completion haveged sshguard tcpdump mtr-tiny vim nano unp mlocate screen tmux cmake build-essential libcap-dev pkg-config libgps-dev python3 ethtool lsb-release zip locales-all ccze ncdu
+apt install git screen tmux etckeeper sshguard tcpdump dnsutils realpath htop tig bash-completion haveged mtr-tiny vim nano unp mlocate python3 ethtool lsb-release zip locales-all ccze ncdu libcap-dev pkg-config libgps-dev cmake build-essential
 
 #not needed packages from standard OVH template
-apt-get -y remove nginx nginx-full exim mutt
+apt -y remove nginx nginx-full exim mutt
 
 #puppet modules install
-apt-get -y install --no-install-recommends puppet
+apt -y install --no-install-recommends puppet
 puppet module install puppetlabs-stdlib --version 4.15.0 && \
 puppet module install puppetlabs-apt --version 1.5.2 && \
 puppet module install puppetlabs-vcsrepo --version 1.3.2 && \
 puppet module install saz-sudo --version 4.1.0 && \
 puppet module install torrancew-account --version 0.1.0
-cd /etc/puppet/modules
+cd /usr/share/puppet/modules
 git clone https://github.com/ffnord/ffnord-puppet-gateway ffnord
 
 # symlink check-install script
-ln -s /etc/puppet/modules/ffnord/files/usr/local/bin/check-services /usr/local/bin/check-services
+ln -s /usr/share/puppet/modules/ffnord/files/usr/local/bin/check-services /usr/local/bin/check-services
 
 # add aliases
 cat <<-EOF >> /root/.bashrc
-  export LS_OPTIONS='--color=auto'
-  eval " \`dircolors\`"
-  alias ls='ls \$LS_OPTIONS'
-  alias ll='ls \$LS_OPTIONS -lah'
-  alias l='ls \$LS_OPTIONS -lA'
-  alias grep="grep --color=auto"
-  # let us only use aptitude on gateways
-  alias ..="cd .."
-  # set nano to (S=)smooth scrolling and (i=)autoindent (T=)2 tabs (E=)as spaces
-  # history settings
-  HISTCONTROL=ignoreboth
-  HISTSIZE=10000
-  HISTFILESIZE=200000
+	export LS_OPTIONS='--color=auto'
+	eval " \`dircolors\`"
+	alias ls='ls \$LS_OPTIONS'
+	alias ll='ls \$LS_OPTIONS -lah'
+	alias l='ls \$LS_OPTIONS -lA'
+	alias grep="grep --color=auto"
+	# let us only use aptitude on gateways
+	alias ..="cd .."
+	# set nano to (S=)smooth scrolling and (i=)autoindent (T=)2 tabs (E=)as spaces
+	# history settings
+	HISTCONTROL=ignoreboth
+	HISTSIZE=10000
+	HISTFILESIZE=200000
 EOF
 
 # back in /root
@@ -88,9 +88,9 @@ echo ip_conntrack >> /etc/modules
 #online script
 touch /usr/local/bin/online
 cat <<-EOF >> /usr/local/bin/online
-#!/bin/bash
-
-maintenance off && service ntp start && batctl -m bat-ffki gw server 100000/100000 && check-services
+	#!/bin/bash
+	
+	maintenance off && service ntp start && batctl -m bat-ffki gw server 100000/100000 && check-services
 EOF
 chmod +x /usr/local/bin/online
 
