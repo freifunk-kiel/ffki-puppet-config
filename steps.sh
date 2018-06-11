@@ -1,3 +1,6 @@
+echo Dieses script nur von hand copy paste ausführen!
+exit
+
 sudo su
 
 ## Zeitzone anpassen
