@@ -7,9 +7,9 @@ NAME="Freifunk Kiel"
 OPERATOR="Offene Netze Nord e.V."
 CHANGELOG="https://issues.freifunk.in-kiel.de/projects/ffki/issues/"
 HOST_PREFIX="ffki-"
-SUBDOMAIN_PREFIX=gw
-VPN_NUMBER=0
-DOMAIN="kiel.freifunk.net"
+SUBDOMAIN_PREFIX=vpn
+VPN_NUMBER=4
+DOMAIN="freifunk.in-kiel.de"
 SUDOUSERNAME="debian"
 TLD=ffki
 
@@ -22,7 +22,7 @@ apt-get update && apt-get dist-upgrade && apt-get upgrade
 #MOTD setzen
 rm /etc/motd
 echo "*********************************************************" >>/etc/motd
-echo " $NAME - Gateway $VPN_NUMBER.$SUBDOMAIN_PREFIX.$DOMAIN $NAME " >>/etc/motd
+echo " $NAME - Gateway $SUBDOMAIN_PREFIX$VPN_NUMBER.$DOMAIN $NAME " >>/etc/motd
 echo " Hoster: $OPERATOR *" >>/etc/motd
 echo "*******************************************************" >>/etc/motd
 echo " " >>/etc/motd
@@ -33,7 +33,7 @@ echo " Happy Hacking! *" >>/etc/motd
 echo "**********************************************************" >>/etc/motd
 
 #Hostname setzen
-hostname $HOST_PREFIX$VPN_NUMBER
+hostname "vpn$VPN_NUMBER"
 #echo "127.0.1.1 $SUBDOMAIN_PREFIX$VPN_NUMBER.$DOMAIN $HOST_PREFIX$VPN_NUMBER" >>/etc/hosts
 rm /etc/hostname
 touch /etc/hostname
@@ -62,7 +62,7 @@ git clone https://github.com/ffnord/ffnord-puppet-gateway ffnord
 ln -s /etc/puppet/modules/ffnord/files/usr/local/bin/check-services /usr/local/bin/check-services
 
 # add aliases
-cat <<-EOF>> /root/.bashrc
+cat <<-EOF >> /root/.bashrc
   export LS_OPTIONS='--color=auto'
   eval " \`dircolors\`"
   alias ls='ls \$LS_OPTIONS'
@@ -87,7 +87,7 @@ echo ip_conntrack >> /etc/modules
 
 #online script
 touch /usr/local/bin/online
-cat <<-EOF>> /usr/local/bin/online
+cat <<-EOF >> /usr/local/bin/online
 #!/bin/bash
 
 maintenance off && service ntp start && batctl -m bat-ffki gw server 100000/100000 && check-services
@@ -95,7 +95,7 @@ EOF
 chmod +x /usr/local/bin/online
 
 ##OVH network config
-#cat <<-EOF>> /etc/network/interfaces
+#cat <<-EOF >> /etc/network/interfaces
 #
 #iface eth0 inet6 static
 #       address 2001:41d0:701:1000::27c
