@@ -20,7 +20,7 @@ sed -e '/deb cdrom/ s/^#*/#/' /etc/apt/sources.list
 
 
 ## Pakete vorinstallieren
-apt update && apt -y install apt-transport-https git nload screen tmux etckeeper sshguard tcpdump dnsutils realpath htop tig bash-completion haveged mtr-tiny vim nano unp mlocate cmake build-essential libcap-dev pkg-config libgps-dev python3 ethtool lsb-release zip locales-all ccze ncdu
+apt update && apt -y install apt-transport-https git nload screen tmux etckeeper sshguard tcpdump dnsutils realpath htop tig bash-completion haveged mtr-tiny vim nano unp mlocate cmake build-essential libcap-dev pkg-config libgps-dev python3 ethtool lsb-release zip locales-all ccze ncdu isc-dhcp-server
 
 ## Puppet cfg clonen
 cd /opt && git clone https://github.com/Freifunk-Kiel/ffki-puppet-config
@@ -46,9 +46,9 @@ sh pre-puppet.sh
 cd /opt
 puppet apply --verbose addusers.pp
 
-## puppet starten
+## puppet starten mit dem richtigen manifest!
 cd /opt/ffki-puppet-config
-puppet apply --verbose 0.gw.manifest.pp
+puppet apply --verbose 4.gw.manifest.pp
 
 ## batctl und batman-adv-dkms auf 2013 ändern
 ### im rm Befehl ggf. Kernel Version ändern 
