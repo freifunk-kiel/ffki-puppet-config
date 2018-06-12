@@ -42,6 +42,9 @@ nano /root/ffki-fastd-secret.key.priv
 ## Pre-puppet ausführen
 sh pre-puppet.sh
 
+## key fpr batman installieren (wegen issue https://github.com/ffnord/ffnord-puppet-gateway/issues/158)
+apt-key adv --recv-keys --keyserver keys.gnupg.net 16EF3F64CB201D9C
+
 ## adduser puppet ausführen
 cd /opt
 puppet apply --verbose addusers.pp
@@ -57,20 +60,20 @@ apt -y remove batman-adv-dkms
 rm /lib/modules/3.16.0-4-amd64/kernel/net/batman-adv/batman-adv.ko
 apt install -y batctl=2013.4.0-1 batman-adv-dkms=2013.4.0-11
 dkms uninstall batman-adv/2013.4.0
-dkms install batman-adv/2013.4.0
+dkms install batman-adv/2013.4.0 --force
 rmmod batman-adv
 modprobe batman-adv
 batctl -v
 
 ### Version anpinnen
 cat <<-EOF >> /etc/apt/preferences
-	Package: batctl
-	Pin: version 2013.4.0-1
-	Pin-Priority: 1000
+Package: batctl
+Pin: version 2013.4.0-1
+Pin-Priority: 1000
 
-	Package: batman-adv-dkms
-	Pin: version 2013.4.0-11
-	Pin-Priority: 1000
+Package: batman-adv-dkms
+Pin: version 2013.4.0-11
+Pin-Priority: 1000
 EOF
 
 

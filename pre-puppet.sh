@@ -87,7 +87,7 @@ echo ip_conntrack >> /etc/modules
 
 #online script
 touch /usr/local/bin/online
-cat <<-EOF >> /usr/local/bin/online
+cat <<-EOF > /usr/local/bin/online
 	#!/bin/bash
 	
 	maintenance off && service ntp start && batctl -m bat-ffki gw server 100000/100000 && check-services
